@@ -1,0 +1,24 @@
+name: Build & Push Docker Image
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to Docker Hub
+      run: echo "${{ secrets.Shreya@1045 }}" | docker login -u "${{ secrets.shreya1045 }}" --password-stdin
+
+    - name: Build and Push Docker Image
+      run: |
+        docker build -t shreyakumari/flask-todo:latest .
+        docker push shreyakumari/flask-todo:latest
